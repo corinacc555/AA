@@ -1,0 +1,584 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath} 
+\usepackage{fancyhdr} 
+\usepackage[top=2cm, bottom=2cm, left=2.5cm, right=2.5cm]{geometry} 
+\usepackage{dirtytalk} 
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{float}
+
+% Python syntax highlighting
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small, 
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{orange},
+    frame=single,
+    breaklines=true,
+    showstringspaces=false,
+    numbers=left,
+    captionpos=b
+}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+    \includegraphics[width=0.3\textwidth]{UTM_Logo_SubText (1).png} \\[0.2cm]
+    
+    \textbf{MINISTRY OF EDUCATION, CULTURE AND RESEARCH 
+OF THE REPUBLIC OF MOLDOVA} \\[0.3cm]
+    
+    \textbf{Technical University of Moldova \\
+    Faculty of Computers, Informatics and Microelectronics \\
+    Department of Software and Automation Engineering} \\[2cm]
+    
+    \textbf{Coșneanu Corina, FAF-241}\\[0.5cm]
+    
+    \Huge \textbf{Report} \\[0.5cm]
+    
+    \large Laboratory work n.1 \\[0.5cm]
+    
+    \textbf{Study and Empirical Analysis of Algorithms for
+Determining Fibonacci N-th Term} \\[3cm]
+    
+    \begin{flushright}
+        \textit{Checked by:} \\
+        \textbf{Fistic Cristofor}, \textit{University Assistant} \\
+        Department of Software and Automation Engineering, 
+        \\FCIM Faculty, UTM 
+    \end{flushright}
+    
+    \vfill
+    
+    Chișinău -- 2025
+\end{center}
+\end{titlepage}
+
+% Add Table of Contents
+\newpage
+\tableofcontents
+\newpage
+
+\setcounter{page}{1}
+
+\section{ALGORITHM ANALYSIS}
+
+\subsection{Objective}
+\hspace{0.8cm} Study and analyze different algorithms for determining Fibonacci n-th term through empirical performance measurement and comparison.
+
+\subsection{Tasks}
+\begin{enumerate}
+    \item Implement at least 3 algorithms for determining Fibonacci n-th term;
+    \item Decide properties of input format that will be used for algorithm analysis;
+    \item Decide the comparison metric for the algorithms;
+    \item Analyze empirically the algorithms;
+    \item Present the results of the obtained data;
+    \item Deduce conclusions of the laboratory. 
+\end{enumerate}
+
+\subsection{Theoretical Notes}
+\hspace{0.8cm} An alternative to mathematical analysis of complexity is empirical analysis.
+This may be useful for: obtaining preliminary information on the complexity class of an
+algorithm; comparing the efficiency of two (or more) algorithms for solving the same problems;
+comparing the efficiency of several implementations of the same algorithm; obtaining information on the
+efficiency of implementing an algorithm on a particular computer.
+
+In the empirical analysis of an algorithm, the following steps are usually followed:
+
+\begin{enumerate}
+    \item The purpose of the analysis is established.
+    \item Choose the efficiency metric to be used (number of executions of an operation(s) or execution time of all or part of the algorithm).
+    \item The properties of the input data in relation to which the analysis is performed are established (data size or specific properties).
+    \item The algorithm is implemented in a programming language.
+    \item Generating multiple sets of input data.
+    \item Run the program for each input data set.
+    \item The obtained data are analyzed.
+\end{enumerate}
+
+The choice of the efficiency measure depends on the purpose of the analysis. If, for example, the
+aim is to obtain information on the complexity class or even checking the accuracy of a theoretical
+estimate then it is appropriate to use the number of operations performed. But if the goal is to assess the
+behavior of the implementation of an algorithm then execution time is appropriate.
+
+After the execution of the program with the test data, the results are recorded and, for the purpose
+of the analysis, either synthetic quantities (mean, standard deviation, etc.) are calculated or a graph with
+appropriate pairs of points (i.e. problem size, efficiency measure) is plotted.
+
+\subsection{Introduction}
+\hspace{0.8cm} The Fibonacci sequence is the series of numbers where each number is the sum of the two
+preceding numbers. For example: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, \ldots
+
+Mathematically we can describe this as: $x_n = x_{n-1} + x_{n-2}$.
+
+Many sources claim this sequence was first discovered or "invented" by Leonardo Fibonacci. The
+Italian mathematician, who was born around A.D. 1170, was initially known as Leonardo of Pisa. In the
+19th century, historians came up with the nickname Fibonacci (roughly meaning "son of the Bonacci
+clan") to distinguish the mathematician from another famous Leonardo of Pisa.
+
+There are others who say he did not. Keith Devlin, the author of \textit{Finding Fibonacci: The Quest to
+Rediscover the Forgotten Mathematical Genius Who Changed the World}, says there are ancient Sanskrit
+texts that use the Hindu-Arabic numeral system - predating Leonardo of Pisa by centuries.
+But, in 1202 Leonardo of Pisa published a mathematical text, \textit{Liber Abaci}. It was a "cookbook" written
+for tradespeople on how to do calculations. The text laid out the Hindu-Arabic arithmetic useful for
+tracking profits, losses, remaining loan balances, etc., introducing the Fibonacci sequence to the Western
+world.
+
+Traditionally, the sequence was determined just by adding two predecessors to obtain a new
+number, however, with the evolution of computer science and algorithmics, several distinct methods for
+determination have been uncovered. The methods can be grouped in 4 categories: Recursive Methods,
+Dynamic Programming Methods, Matrix Power Methods, and Binet Formula Methods. All those can be
+implemented naively or with a certain degree of optimization, that boosts their performance during
+analysis.
+
+As mentioned previously, the performance of an algorithm can be analyzed mathematically
+(derived through mathematical reasoning) or empirically (based on experimental observations).
+
+Within this laboratory, we will be analyzing six different algorithms empirically to understand their practical performance characteristics and scalability limitations.
+
+\subsection{Comparison Metric}
+\hspace{0.8cm} The comparison metric for this laboratory work will be the \textbf{execution time} of each
+algorithm, measured in seconds using high-precision timing (T(n)). This metric was chosen because:
+
+\begin{itemize}
+    \item It reflects real-world performance that users would experience
+    \item It captures all overhead including function calls, memory allocation, and cache effects
+    \item It allows direct comparison between different algorithmic approaches
+    \item It is easily measurable and interpretable
+\end{itemize}
+
+Each algorithm was tested multiple times and the average execution time was recorded to ensure reliability of measurements.
+
+\subsection{Input Format}
+\hspace{0.8cm} As input, each algorithm receives two series of numbers representing the order of the
+Fibonacci terms being looked up:
+
+\textbf{Series 1 (Small values):} 5, 7, 10, 12, 15, 17, 20, 22, 25, 27, 30, 32, 35, 37, 40, 42, 45
+
+This series has a limited scope to accommodate the naive recursive method, which has exponential time complexity and becomes impractical for larger values.
+
+\textbf{Series 2 (Large values):} 501, 631, 794, 1000, 1259, 1585, 1995, 2512, 3162, 3981, 5012, 6310, 7943, 10000, 12589, 15849
+
+This series has a larger scope to compare the more efficient algorithms and evaluate their scalability for practical applications.
+
+The input ranges were specifically designed to:
+\begin{itemize}
+    \item Reveal the exponential growth of the naive recursive algorithm
+    \item Compare linear-time algorithms (iterative, memoized, DP)
+    \item Demonstrate the advantage of logarithmic-time algorithms (matrix exponentiation)
+    \item Test the constant-time Binet's formula within its precision limits
+\end{itemize}
+
+\clearpage
+\section{IMPLEMENTATION}
+
+This section presents the implementation, execution results, and performance graphs for each of the six Fibonacci algorithms analyzed in this laboratory work.
+
+\subsection{Algorithm 1: Naive Recursive}
+
+\textbf{Description:} This is the most straightforward implementation, directly following the mathematical definition of the Fibonacci sequence. However, it recalculates the same values multiple times, leading to exponential time complexity O($2^n$). This makes it impractical for values beyond n $\approx$ 35-40.
+
+\begin{lstlisting}[caption={Naive Recursive Implementation}]
+def fibonacci_naive_recursive(n):
+    if n <= 1:
+        return n
+    return fibonacci_naive_recursive(n-1) + fibonacci_naive_recursive(n-2)
+\end{lstlisting}
+
+\textbf{Time Complexity:} O($2^n$) - Exponential \\
+\textbf{Space Complexity:} O(n) - Recursion stack depth \\
+\textbf{Characteristics:} Simple to understand but highly inefficient due to redundant calculations.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{image.png}
+    \caption{Implementation of Naive Recursive Algorithm in Python}
+    \label{fig:naive_impl}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{2.png}
+    \caption{Execution results showing exponential time growth for Naive Recursive method}
+    \label{fig:naive_results}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{gr1.png}
+    \caption{Performance graph demonstrating exponential growth of execution time}
+    \label{fig:naive_graph}
+\end{figure}
+
+\textbf{Analysis:} As shown in Figure \ref{fig:naive_graph}, the execution time grows exponentially. For n=25, it takes approximately 0.015 seconds, but this quickly becomes unusable for larger values. This algorithm serves primarily as an educational example of what to avoid in production code.
+
+\clearpage
+\subsection{Algorithm 2: Iterative}
+
+\textbf{Description:} The iterative approach uses a simple loop to calculate Fibonacci numbers sequentially, maintaining only the previous two values. This eliminates recursion overhead and achieves O(n) time complexity with O(1) space complexity, making it one of the most practical implementations.
+
+\begin{lstlisting}[caption={Iterative Implementation}]
+def fibonacci_iterative(n):
+    if n <= 1:
+        return n
+    a, b = 0, 1
+    for _ in range(2, n+1):
+        a, b = b, a + b
+    return b
+\end{lstlisting}
+
+\textbf{Time Complexity:} O(n) - Linear \\
+\textbf{Space Complexity:} O(1) - Constant \\
+\textbf{Characteristics:} Memory efficient, no recursion overhead, reliable performance for all practical input sizes.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{91.png}
+    \caption{Implementation of Iterative Algorithm in Python}
+    \label{fig:iter_impl}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{90.png}
+    \caption{Execution results showing linear time growth for Iterative method}
+    \label{fig:iter_results}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{gr2.png}
+    \caption{Performance graph showing stable linear growth}
+    \label{fig:iter_graph}
+\end{figure}
+
+\textbf{Analysis:} The iterative method demonstrates predictable linear growth in execution time. It consistently performs well across all input sizes, with execution times remaining in the microseconds range even for large values. This is the recommended approach for most general-purpose applications.
+
+\clearpage
+\subsection{Algorithm 3: Memoized Recursive}
+
+\textbf{Description:} This algorithm combines the elegance of recursion with the efficiency of caching. Using Python's \texttt{lru\_cache} decorator, it stores previously computed values, reducing the time complexity from O($2^n$) to O(n). This is a classic example of dynamic programming (top-down approach).
+
+\begin{lstlisting}[caption={Memoized Recursive Implementation}]
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def fibonacci_memoized(n):
+    if n <= 1:
+        return n
+    return fibonacci_memoized(n-1) + fibonacci_memoized(n-2)
+\end{lstlisting}
+
+\textbf{Time Complexity:} O(n) - Linear (after caching) \\
+\textbf{Space Complexity:} O(n) - Cache storage + recursion stack \\
+\textbf{Characteristics:} Elegant recursive solution with efficient performance through memoization.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{92.png}
+    \caption{Implementation of Memoized Recursive Algorithm in Python}
+    \label{fig:memo_impl}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{93.png}
+    \caption{Execution results showing improved performance with caching}
+    \label{fig:memo_results}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{gr3.png}
+    \caption{Performance graph demonstrating linear growth with memoization}
+    \label{fig:memo_graph}
+\end{figure}
+
+\textbf{Analysis:} Memoization transforms the naive recursive algorithm from unusable to practical. While it uses more memory than the iterative approach, it achieves similar linear time performance. The graph shows stable growth, though slightly slower than pure iteration due to cache management overhead.
+
+\clearpage
+\subsection{Algorithm 4: Dynamic Programming}
+
+\textbf{Description:} The dynamic programming approach (bottom-up) builds the solution by storing all Fibonacci numbers from 0 to n in an array. This ensures each value is calculated exactly once, achieving O(n) time complexity. Unlike memoization (top-down), it doesn't use recursion.
+
+\begin{lstlisting}[caption={Dynamic Programming Implementation}]
+def fibonacci_dp(n):
+    if n <= 1:
+        return n
+    dp = [0] * (n + 1)
+    dp[1] = 1
+    for i in range(2, n + 1):
+        dp[i] = dp[i-1] + dp[i-2]
+    return dp[n]
+\end{lstlisting}
+
+\textbf{Time Complexity:} O(n) - Linear \\
+\textbf{Space Complexity:} O(n) - Array storage \\
+\textbf{Characteristics:} No recursion, predictable memory usage, stores all intermediate values.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{95.png}
+    \caption{Implementation of Dynamic Programming Algorithm in Python}
+    \label{fig:dp_impl}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{94.png}
+    \caption{Execution results for Dynamic Programming approach}
+    \label{fig:dp_results}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{gr4.png}
+    \caption{Performance graph showing linear time complexity}
+    \label{fig:dp_graph}
+\end{figure}
+
+\textbf{Analysis:} The dynamic programming approach performs comparably to the iterative method, with slightly higher memory usage due to storing all values. It's particularly useful when you need access to multiple Fibonacci numbers, not just the n-th term. The graph confirms linear growth in execution time.
+
+\clearpage
+\subsection{Algorithm 5: Matrix Exponentiation}
+
+\textbf{Description:} This sophisticated algorithm uses matrix multiplication and fast exponentiation to achieve O(log n) time complexity. It's based on the mathematical property that:
+\[
+\begin{bmatrix} F(n+1) & F(n) \\ F(n) & F(n-1) \end{bmatrix} = \begin{bmatrix} 1 & 1 \\ 1 & 0 \end{bmatrix}^n
+\]
+
+\begin{lstlisting}[caption={Matrix Exponentiation Implementation}]
+def fibonacci_matrix(n):
+    if n <= 1:
+        return n
+    def matrix_multiply(a, b):
+        return [[a[0][0]*b[0][0] + a[0][1]*b[1][0], 
+                 a[0][0]*b[0][1] + a[0][1]*b[1][1]],
+                [a[1][0]*b[0][0] + a[1][1]*b[1][0], 
+                 a[1][0]*b[0][1] + a[1][1]*b[1][1]]]
+    def matrix_power(matrix, n):
+        if n == 1:
+            return matrix
+        if n % 2 == 0:
+            half = matrix_power(matrix, n//2)
+            return matrix_multiply(half, half)
+        else:
+            return matrix_multiply(matrix, matrix_power(matrix, n-1))
+    matrix = [[1, 1], [1, 0]]
+    result = matrix_power(matrix, n)
+    return result[0][1]
+\end{lstlisting}
+
+\textbf{Time Complexity:} O(log n) - Logarithmic \\
+\textbf{Space Complexity:} O(log n) - Recursion stack for exponentiation \\
+\textbf{Characteristics:} Most efficient for very large n, maintains integer precision, optimal asymptotic performance.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{96.png}
+    \caption{Implementation of Matrix Exponentiation Algorithm in Python}
+    \label{fig:matrix_impl}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{97.png}
+    \caption{Execution results showing logarithmic time growth}
+    \label{fig:matrix_results}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{gr5.png}
+    \caption{Performance graph demonstrating superior scalability}
+    \label{fig:matrix_graph}
+\end{figure}
+
+\textbf{Analysis:} Matrix exponentiation shows the best asymptotic performance. While it may have slightly higher overhead for small values, it significantly outperforms linear algorithms for large n. The logarithmic growth means execution time increases very slowly even as n grows by orders of magnitude. This is the optimal choice for extremely large Fibonacci numbers.
+
+\clearpage
+\subsection{Algorithm 6: Binet's Formula}
+
+\textbf{Description:} Binet's formula provides a closed-form expression for calculating Fibonacci numbers using the golden ratio. Theoretically O(1), it offers constant-time computation but is limited by floating-point precision errors for large values (typically n > 70).
+
+The formula is:
+\[
+F(n) = \frac{\phi^n - \psi^n}{\sqrt{5}}
+\]
+where $\phi = \frac{1 + \sqrt{5}}{2}$ (golden ratio) and $\psi = \frac{1 - \sqrt{5}}{2}$
+
+\begin{lstlisting}[caption={Binet's Formula Implementation}]
+def fibonacci_binet(n):
+    sqrt5 = 5 ** 0.5
+    phi = (1 + sqrt5) / 2
+    psi = (1 - sqrt5) / 2
+    return int((phi**n - psi**n) / sqrt5)
+\end{lstlisting}
+
+\textbf{Time Complexity:} O(1) - Constant (assuming constant-time arithmetic) \\
+\textbf{Space Complexity:} O(1) - Constant \\
+\textbf{Characteristics:} Fastest execution for valid range, but limited by floating-point precision for large n.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{98.png}
+    \caption{Implementation of Binet's Formula in Python}
+    \label{fig:binet_impl}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{988.png}
+    \caption{Execution results showing constant-time performance}
+    \label{fig:binet_results}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{gr6.png}
+    \caption{Performance graph showing minimal time variation}
+    \label{fig:binet_graph}
+\end{figure}
+
+\textbf{Analysis:} Binet's formula demonstrates consistently fast execution times regardless of input size, confirming its O(1) complexity. However, it becomes unreliable for n > 70 due to floating-point precision limitations. Within its valid range, it's the fastest method, making it suitable for quick approximations or when exact precision isn't critical.
+
+\clearpage
+\section{COMPARATIVE ANALYSIS}
+
+This section presents a comprehensive comparison of all six algorithms across different input ranges, highlighting their relative performance characteristics and practical limitations.
+
+\subsection{Small Input Values Comparison}
+
+Table \ref{tab:small_comparison} shows the execution times for small values of n. Even at these modest input sizes, we can observe significant differences in algorithm performance.
+
+\begin{table}[H]
+\centering
+\caption{Execution times for small n values (seconds)}
+\label{tab:small_comparison}
+\small
+\begin{tabular}{@{}rrrrrr@{}}
+\toprule
+\textbf{n} & \textbf{Naive Recursive} & \textbf{Iterative} & \textbf{Memoized} & \textbf{DP} & \textbf{Binet} \\ 
+\midrule
+5  & 0.00000475 & 0.00000556 & 0.00000627 & 0.00000828 & 0.00001133 \\ 
+10 & 0.00001446 & 0.00000188 & 0.00000472 & 0.00000295 & 0.00000310 \\ 
+15 & 0.00011762 & 0.00000137 & 0.00000586 & 0.00000256 & 0.00000135 \\ 
+20 & 0.00134528 & 0.00000138 & 0.00000697 & 0.00000271 & 0.00000096 \\ 
+25 & 0.01511069 & 0.00000132 & 0.00000983 & 0.00000260 & 0.00000103 \\ 
+30 & N/A        & 0.00000134 & 0.00001021 & 0.00000332 & 0.00000082 \\ 
+35 & N/A        & 0.00000170 & 0.00001158 & 0.00000341 & 0.00000086 \\ 
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Key Observations:}
+\begin{itemize}
+    \item Naive recursive becomes impractical beyond n=25, taking over 15 milliseconds
+    \item Iterative method shows consistently excellent performance
+    \item Binet's formula is fastest for this range, with near-constant execution time
+    \item Memoized and DP approaches have slight overhead but remain competitive
+    \item The exponential nature of naive recursion is clearly evident
+\end{itemize}
+
+\subsection{Large Input Values Comparison}
+
+Table \ref{tab:large_comparison} presents results for large values of n, where the differences between algorithms become more pronounced. The naive recursive method is excluded as it cannot handle these inputs.
+
+\begin{table}[H]
+\centering
+\caption{Execution times for large n values (seconds)}
+\label{tab:large_comparison}
+\small
+\begin{tabular}{@{}rrrrrr@{}}
+\toprule
+\textbf{n} & \textbf{Iterative} & \textbf{Memoized} & \textbf{DP} & \textbf{Matrix} & \textbf{Binet} \\ 
+\midrule
+50   & 0.00000337 & 0.00001839 & 0.00000559 & 0.00000772 & 0.00000084 \\ 
+100  & 0.00000554 & 0.00004915 & 0.00001142 & 0.00000913 & 0.00000155 \\ 
+200  & 0.00001078 & 0.00015073 & 0.00001883 & 0.00001481 & 0.00000120 \\ 
+500  & 0.00003062 & 0.00035187 & 0.00005938 & 0.00001801 & N/A \\ 
+1000 & 0.00009691 & N/A        & 0.00013912 & 0.00001954 & N/A \\ 
+2000 & 0.00017557 & N/A        & 0.00031467 & 0.00002629 & N/A \\ 
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Key Observations:}
+\begin{itemize}
+    \item Matrix exponentiation shows superior scalability, maintaining low execution times even at n=2000
+    \item Iterative method performs well and scales predictably
+    \item Binet's formula fails for large n due to precision limits
+    \item Memoized approach has limitations with very large values due to recursion depth
+    \item The logarithmic advantage of matrix exponentiation becomes clear at scale
+\end{itemize}
+
+\subsection{Algorithm Characteristics Summary}
+
+Table \ref{tab:summary} provides a comprehensive overview of each algorithm's theoretical properties and practical limitations.
+
+\begin{table}[H]
+\centering
+\caption{Fibonacci Algorithms Comparison Summary}
+\label{tab:summary}
+\footnotesize
+\begin{tabular}{@{}p{3.5cm}p{2cm}p{1.5cm}p{1.5cm}p{5cm}@{}}
+\toprule
+\textbf{Algorithm} & \textbf{Time} & \textbf{Space} & \textbf{Max n} & \textbf{Notes} \\ 
+\midrule
+Naive Recursive & O($2^n$) & O(n) & $\sim$35 & Exponential growth, educational only \\ 
+\midrule
+Iterative & O(n) & O(1) & $>10^6$ & Best for most practical applications \\ 
+\midrule
+Memoized Recursive & O(n) & O(n) & $\sim10^4$ & Elegant recursion with caching \\ 
+\midrule
+Dynamic Programming & O(n) & O(n) & $\sim10^5$ & Stores all computed values \\ 
+\midrule
+Matrix Exponentiation & O(log n) & O(log n) & $>10^7$ & Optimal for very large n \\ 
+\midrule
+Binet's Formula & O(1) & O(1) & $\sim$70 & Fast but limited by floating-point precision \\ 
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Practical Recommendations:}
+\begin{itemize}
+    \item \textbf{General purpose:} Use iterative (simple, fast, memory efficient)
+    \item \textbf{Very large n:} Use matrix exponentiation (best scalability)
+    \item \textbf{Quick estimates:} Use Binet's formula (within precision limits)
+    \item \textbf{Educational context:} Use memoized recursive (demonstrates DP concepts)
+    \item \textbf{Never use:} Naive recursive in production code
+\end{itemize}
+
+\clearpage
+\section{CONCLUSIONS}
+
+\hspace{0.8cm} Through this laboratory work, I have gained significant insights into how different algorithmic approaches can dramatically affect the performance of a seemingly simple problem like computing Fibonacci numbers. The empirical analysis revealed that the choice of algorithm is not just a theoretical concern but has real, measurable consequences that can make the difference between a program that runs in milliseconds versus one that takes hours or is entirely impractical.
+
+The naive recursive implementation was my starting point, as it most closely follows the mathematical definition of the Fibonacci sequence. However, testing quickly revealed its severe limitations. For n=25, the execution time reached approximately 15 milliseconds, and attempting to calculate larger values showed exponential growth that made this approach completely unusable beyond n$\approx$35. This was an eye-opening demonstration of how a simple, elegant implementation can be catastrophically inefficient in practice. The problem stems from the fact that this algorithm recalculates the same Fibonacci values repeatedly, leading to an explosion of redundant computations.
+
+The iterative approach proved to be one of the most practical solutions I tested. By maintaining only the previous two Fibonacci values and computing each subsequent term through a simple loop, this method achieved linear time complexity with constant space usage. Throughout my tests, from small values like n=5 to large values like n=2000, the iterative method delivered consistently reliable performance. The execution times remained in the microseconds range, and the algorithm scaled predictably. What impressed me most about this approach was its simplicity—the code is straightforward to understand and implement, yet it performs excellently for most practical applications. For someone looking for a general-purpose Fibonacci calculator, this would be my first recommendation.
+
+The memoized recursive implementation demonstrated how a simple optimization technique can transform an unusable algorithm into a practical one. By adding caching through Python's lru\_cache decorator, the recursive approach went from exponential O($2^n$) to linear O(n) time complexity. This was fascinating to observe in practice—the same recursive structure that was impractical in its naive form became competitive with other efficient methods once equipped with memoization. However, I noticed that it was slightly slower than the pure iterative approach due to the overhead of managing the cache and the recursion stack. Additionally, for very large values of n, the recursion depth became a limiting factor. Despite these drawbacks, this method elegantly bridges the gap between theoretical elegance and practical efficiency.
+
+The dynamic programming approach, using a bottom-up strategy with an array, performed similarly to the iterative method but with higher memory usage. By storing all Fibonacci numbers from 0 to n, this algorithm ensures each value is calculated exactly once. My tests showed that it scales linearly, just like the iterative and memoized approaches, though it consistently used more memory. The performance difference between iterative and dynamic programming was minimal in terms of time, but the memory footprint was noticeably larger. This method would be particularly useful if one needed to access multiple Fibonacci values, not just the n-th term, since all intermediate values are stored.
+
+Matrix exponentiation was by far the most sophisticated algorithm I implemented, and its performance at scale was impressive. Based on the mathematical property that Fibonacci numbers can be computed through matrix powers, this method achieves logarithmic time complexity O(log n). For smaller values, the overhead of matrix operations meant it wasn't significantly faster than simpler approaches. However, as n grew larger, the advantages became clear. At n=2000, while the iterative method took 0.176 milliseconds and dynamic programming took 0.315 milliseconds, matrix exponentiation completed in just 0.026 milliseconds—an order of magnitude faster. This demonstrated that for applications requiring very large Fibonacci numbers, the additional implementation complexity of matrix exponentiation is well justified by its superior scalability.
+
+Binet's formula was the most interesting algorithm from a theoretical perspective. Using the golden ratio to compute Fibonacci numbers directly in constant time O(1), it was consistently the fastest method across all reasonable input sizes. The execution time barely changed whether I was computing F(10) or F(100). However, this approach has a critical limitation—floating-point precision errors. Around n=70, the results began to deviate from the correct values due to the limitations of floating-point arithmetic. For my tests with larger values like n=500 or n=1000, Binet's formula became unreliable and had to be excluded. This taught me an important lesson about the difference between theoretical and practical complexity: while Binet's formula is theoretically optimal, its real-world applicability is constrained by the precision of numerical computations.
+
+Comparing all six algorithms side by side, I observed clear patterns in their behavior. The exponential algorithm was useful only for understanding what to avoid. The linear-time algorithms—iterative, memoized, and dynamic programming—formed a middle ground of practical, reliable solutions that work well for most applications. Matrix exponentiation stood out as the champion for large-scale computations, while Binet's formula excelled within its valid range but failed beyond it. This spectrum of performance characteristics showed me that there is rarely a single "best" solution; instead, the optimal choice depends on the specific constraints and requirements of the problem at hand.
+
+What struck me most throughout this analysis was how closely the empirical results matched the theoretical predictions. The O($2^n$) algorithm truly did exhibit exponential growth, the O(n) algorithms scaled linearly, the O(log n) algorithm showed logarithmic behavior, and the O(1) algorithm maintained constant time. This alignment between theory and practice reinforced the value of complexity analysis as a tool for predicting real-world performance. However, the empirical work also revealed nuances that pure theory might miss, such as the overhead differences between implementations with the same complexity class, or the practical limitations of theoretically optimal solutions like Binet's formula.
+
+In conclusion, this laboratory work has deepened my understanding of algorithmic efficiency and the importance of choosing the right tool for the job. The naive recursive approach taught me that simplicity doesn't guarantee efficiency. The iterative method showed me that straightforward solutions can be both simple and highly effective. The memoized recursive algorithm demonstrated the power of caching in optimization. The dynamic programming approach illustrated the trade-off between time and space. Matrix exponentiation proved that sophisticated techniques can deliver superior scalability for large-scale problems. Finally, Binet's formula revealed the gap between theoretical optimality and practical applicability. Moving forward, I will approach algorithm selection with a more nuanced perspective, considering not just theoretical complexity but also implementation overhead, memory constraints, and the specific characteristics of the problem domain.
+
+\end{document}

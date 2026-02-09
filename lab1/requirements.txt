@@ -1,0 +1,10 @@
+# Requirements for Fibonacci Algorithms Analysis
+# Laboratory Work 1
+
+# Data visualization
+matplotlib>=3.5.0
+
+# Numerical operations
+numpy>=1.21.0
+
+# No other external dependencies needed - uses Python standard library
