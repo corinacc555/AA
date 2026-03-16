@@ -1,6 +1,6 @@
 # Lab 3 — Empirical Analysis of DFS and BFS
 
-## Overview
+## Overview 
 Empirical comparison of **Depth-First Search (DFS)** and **Breadth-First Search (BFS)** graph traversal algorithms across different graph types and sizes.
 
 ## Algorithms Implemented
