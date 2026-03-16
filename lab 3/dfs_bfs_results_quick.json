@@ -1,0 +1,353 @@
+{
+  "DFS Iterative": {
+    "sparse": [
+      {
+        "n": 50,
+        "time_ms": 0.03959995228797197,
+        "nodes_visited": 44.0,
+        "edges_examined": 108.0,
+        "max_memory": 17.0
+      },
+      {
+        "n": 100,
+        "time_ms": 0.1286999904550612,
+        "nodes_visited": 100.0,
+        "edges_examined": 448.0,
+        "max_memory": 138.0
+      },
+      {
+        "n": 250,
+        "time_ms": 0.998999981675297,
+        "nodes_visited": 250.0,
+        "edges_examined": 3056.0,
+        "max_memory": 1290.0
+      }
+    ],
+    "medium": [
+      {
+        "n": 50,
+        "time_ms": 0.07430004188790917,
+        "nodes_visited": 50.0,
+        "edges_examined": 240.0,
+        "max_memory": 77.0
+      },
+      {
+        "n": 100,
+        "time_ms": 0.29544997960329056,
+        "nodes_visited": 100.0,
+        "edges_examined": 948.0,
+        "max_memory": 380.0
+      },
+      {
+        "n": 250,
+        "time_ms": 1.14840007154271,
+        "nodes_visited": 250.0,
+        "edges_examined": 6168.0,
+        "max_memory": 2842.0
+      }
+    ],
+    "dense": [
+      {
+        "n": 50,
+        "time_ms": 0.1331500243395567,
+        "nodes_visited": 50.0,
+        "edges_examined": 736.0,
+        "max_memory": 322.0
+      },
+      {
+        "n": 100,
+        "time_ms": 0.47844997607171535,
+        "nodes_visited": 100.0,
+        "edges_examined": 2954.0,
+        "max_memory": 1382.0
+      },
+      {
+        "n": 250,
+        "time_ms": 2.806800010148436,
+        "nodes_visited": 250.0,
+        "edges_examined": 18574.0,
+        "max_memory": 9041.0
+      }
+    ],
+    "tree": [
+      {
+        "n": 50,
+        "time_ms": 0.052099989261478186,
+        "nodes_visited": 50.0,
+        "edges_examined": 98.0,
+        "max_memory": 6.0
+      },
+      {
+        "n": 100,
+        "time_ms": 0.1163500128313899,
+        "nodes_visited": 100.0,
+        "edges_examined": 198.0,
+        "max_memory": 8.0
+      },
+      {
+        "n": 250,
+        "time_ms": 0.1941000227816403,
+        "nodes_visited": 250.0,
+        "edges_examined": 498.0,
+        "max_memory": 9.0
+      }
+    ],
+    "grid": [
+      {
+        "n": 50,
+        "time_ms": 0.1342500327154994,
+        "nodes_visited": 64.0,
+        "edges_examined": 224.0,
+        "max_memory": 50.0
+      },
+      {
+        "n": 100,
+        "time_ms": 0.11245004134252667,
+        "nodes_visited": 100.0,
+        "edges_examined": 360.0,
+        "max_memory": 82.0
+      },
+      {
+        "n": 250,
+        "time_ms": 0.21904997993260622,
+        "nodes_visited": 256.0,
+        "edges_examined": 960.0,
+        "max_memory": 226.0
+      }
+    ]
+  },
+  "DFS Recursive": {
+    "sparse": [
+      {
+        "n": 50,
+        "time_ms": 0.03155000740662217,
+        "nodes_visited": 44.0,
+        "edges_examined": 108.0,
+        "max_memory": 16.0
+      },
+      {
+        "n": 100,
+        "time_ms": 0.1537000061944127,
+        "nodes_visited": 100.0,
+        "edges_examined": 448.0,
+        "max_memory": 75.0
+      },
+      {
+        "n": 250,
+        "time_ms": 0.5170500371605158,
+        "nodes_visited": 250.0,
+        "edges_examined": 3056.0,
+        "max_memory": 223.0
+      }
+    ],
+    "medium": [
+      {
+        "n": 50,
+        "time_ms": 0.06375001976266503,
+        "nodes_visited": 50.0,
+        "edges_examined": 240.0,
+        "max_memory": 43.0
+      },
+      {
+        "n": 100,
+        "time_ms": 0.20175002282485366,
+        "nodes_visited": 100.0,
+        "edges_examined": 948.0,
+        "max_memory": 86.0
+      },
+      {
+        "n": 250,
+        "time_ms": 1.0670499759726226,
+        "nodes_visited": 250.0,
+        "edges_examined": 6168.0,
+        "max_memory": 228.0
+      }
+    ],
+    "dense": [
+      {
+        "n": 50,
+        "time_ms": 0.11900003300979733,
+        "nodes_visited": 50.0,
+        "edges_examined": 736.0,
+        "max_memory": 48.0
+      },
+      {
+        "n": 100,
+        "time_ms": 0.3820000565610826,
+        "nodes_visited": 100.0,
+        "edges_examined": 2954.0,
+        "max_memory": 93.0
+      },
+      {
+        "n": 250,
+        "time_ms": 1.970649987924844,
+        "nodes_visited": 250.0,
+        "edges_examined": 18574.0,
+        "max_memory": 245.0
+      }
+    ],
+    "tree": [
+      {
+        "n": 50,
+        "time_ms": 0.060999998822808266,
+        "nodes_visited": 50.0,
+        "edges_examined": 98.0,
+        "max_memory": 6.0
+      },
+      {
+        "n": 100,
+        "time_ms": 0.11069996980950236,
+        "nodes_visited": 100.0,
+        "edges_examined": 198.0,
+        "max_memory": 7.0
+      },
+      {
+        "n": 250,
+        "time_ms": 0.23110001347959042,
+        "nodes_visited": 250.0,
+        "edges_examined": 498.0,
+        "max_memory": 9.0
+      }
+    ],
+    "grid": [
+      {
+        "n": 50,
+        "time_ms": 0.055500015150755644,
+        "nodes_visited": 64.0,
+        "edges_examined": 224.0,
+        "max_memory": 63.0
+      },
+      {
+        "n": 100,
+        "time_ms": 0.13649999164044857,
+        "nodes_visited": 100.0,
+        "edges_examined": 360.0,
+        "max_memory": 99.0
+      },
+      {
+        "n": 250,
+        "time_ms": 0.2968500484712422,
+        "nodes_visited": 256.0,
+        "edges_examined": 960.0,
+        "max_memory": 255.0
+      }
+    ]
+  },
+  "BFS": {
+    "sparse": [
+      {
+        "n": 50,
+        "time_ms": 0.07515004836022854,
+        "nodes_visited": 44.0,
+        "edges_examined": 108.0,
+        "max_memory": 14.0
+      },
+      {
+        "n": 100,
+        "time_ms": 0.10115007171407342,
+        "nodes_visited": 100.0,
+        "edges_examined": 448.0,
+        "max_memory": 44.0
+      },
+      {
+        "n": 250,
+        "time_ms": 0.5856999778188765,
+        "nodes_visited": 250.0,
+        "edges_examined": 3056.0,
+        "max_memory": 184.0
+      }
+    ],
+    "medium": [
+      {
+        "n": 50,
+        "time_ms": 0.04244997398927808,
+        "nodes_visited": 50.0,
+        "edges_examined": 240.0,
+        "max_memory": 28.0
+      },
+      {
+        "n": 100,
+        "time_ms": 0.1618000096641481,
+        "nodes_visited": 100.0,
+        "edges_examined": 948.0,
+        "max_memory": 70.0
+      },
+      {
+        "n": 250,
+        "time_ms": 0.6204000092111528,
+        "nodes_visited": 250.0,
+        "edges_examined": 6168.0,
+        "max_memory": 217.0
+      }
+    ],
+    "dense": [
+      {
+        "n": 50,
+        "time_ms": 0.11084997095167637,
+        "nodes_visited": 50.0,
+        "edges_examined": 736.0,
+        "max_memory": 40.0
+      },
+      {
+        "n": 100,
+        "time_ms": 0.325449975207448,
+        "nodes_visited": 100.0,
+        "edges_examined": 2954.0,
+        "max_memory": 87.0
+      },
+      {
+        "n": 250,
+        "time_ms": 1.6425999347120523,
+        "nodes_visited": 250.0,
+        "edges_examined": 18574.0,
+        "max_memory": 236.0
+      }
+    ],
+    "tree": [
+      {
+        "n": 50,
+        "time_ms": 0.061700004152953625,
+        "nodes_visited": 50.0,
+        "edges_examined": 98.0,
+        "max_memory": 18.0
+      },
+      {
+        "n": 100,
+        "time_ms": 0.09510008385404944,
+        "nodes_visited": 100.0,
+        "edges_examined": 198.0,
+        "max_memory": 29.0
+      },
+      {
+        "n": 250,
+        "time_ms": 0.2730499254539609,
+        "nodes_visited": 250.0,
+        "edges_examined": 498.0,
+        "max_memory": 62.0
+      }
+    ],
+    "grid": [
+      {
+        "n": 50,
+        "time_ms": 0.049799971748143435,
+        "nodes_visited": 64.0,
+        "edges_examined": 224.0,
+        "max_memory": 8.0
+      },
+      {
+        "n": 100,
+        "time_ms": 0.11214998085051775,
+        "nodes_visited": 100.0,
+        "edges_examined": 360.0,
+        "max_memory": 10.0
+      },
+      {
+        "n": 250,
+        "time_ms": 0.29654998797923326,
+        "nodes_visited": 256.0,
+        "edges_examined": 960.0,
+        "max_memory": 16.0
+      }
+    ]
+  }
+}
