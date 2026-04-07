@@ -31,6 +31,7 @@ lab 3/
 ├── dfs_bfs.py             # DFS iterative, DFS recursive, BFS
 ├── performance_analyzer.py# Full sweep + averaging + JSON export
 ├── visualizer.py          # Matplotlib plots (saved to graphs/)
+├── traversal_visualizer.py# Real-time interactive DFS/BFS animation
 ├── main.py                # Entry point (CLI)
 ├── README.md
 └── graphs/                # Generated PNG files
@@ -46,6 +47,9 @@ python main.py --quick
 
 # Traversal demo on a tiny graph
 python main.py --demo
+
+# Live interactive visualization (real-time animation)
+python main.py --live
 
 # Re-generate plots from saved results
 python main.py --load
